@@ -18,6 +18,7 @@ namespace CommandParser
             this.direction = direction;
             this.distance = distance;
         }
+       
 
         public override string ToString()
         {
