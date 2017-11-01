@@ -11,9 +11,9 @@ namespace CommandParser
     {
        
         private String direction { get; set; }
-        private int distance { get; set; }
+        private String distance { get; set; }
 
-        public Command(String direction, int distance)
+        public Command(String direction, String distance)
         {
             this.direction = direction;
             this.distance = distance;

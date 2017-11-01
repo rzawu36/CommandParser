@@ -21,7 +21,7 @@ namespace CommandParser
 
         public override string ToString()
         {
-            return "Message: " + message + ", Command " + command;
+            return "Command -> " + this.command.ToString() + " is " + this.message;
         }
 
 

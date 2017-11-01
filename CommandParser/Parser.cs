@@ -12,14 +12,16 @@ namespace CommandParser
 
         public static List<Command> parseCommand(String stringToParse)
         {
-            String[] commandsSplitByComma = stringToParse.Split(',');
-            String[] commandsSplitBySemiColon = stringToParse.Split(';');
+            string stringWithNoSpaces = new string(stringToParse.Where(c => !char.IsWhiteSpace(c)).ToArray());
+            String[] commandsSplitByComma = stringWithNoSpaces.Split(',');
+            String[] commandsSplitBySemiColon = stringWithNoSpaces.Split(';');
 
-           if (commandsSplitByComma.Length > 0)
+           if (commandsSplitByComma.Length > 1)
             {
+                
                 return splitString(commandsSplitByComma);
             }
-           else if (commandsSplitBySemiColon.Length > 0)
+           else if (commandsSplitBySemiColon.Length > 1)
             {
                 return splitString(commandsSplitBySemiColon);
             }
@@ -48,31 +50,55 @@ namespace CommandParser
                 char[] delimiterChars = { 'l', 'r', 'u', 'd' };
                 string[] words = word.Split(delimiterChars, 2);
                 String direction = word.Substring(0, 1);
-                int distance;
-               
-                if (int.TryParse(words[1], out distance))
+                String distance;
+                int dist;
+                
+
+                
+
+
+                if (isCommand(word) && int.TryParse(words[words.Length - 1], out dist))
                 {
-                    Command c = new Command(direction, distance);
+                    Command c = new Command(direction, dist.ToString());
                     cmds.Add(c);
                 }
                 else
                 {
-                    distance = Int32.Parse(words[1]);
-                    Command c = new Command(direction, distance);
-                    String message = "Invalid Command Format";
+                    distance = words[words.Length - 1];
+                    int dirChecker = 0;
+                    Int32.TryParse(direction, out dirChecker);
+                    if (dirChecker != 0)
+                    {
+                        direction = "Direction Unknown!";
+                    }
+                    Command c = new Command(direction, distance.ToString());
+                    String message = "Invalid";
                     BadCommand bc = new BadCommand(c, message);
                     badCmds.Add(bc);
-                    bc.ToString();
+                    Console.WriteLine(bc.ToString());
 
                 }
-
-
-
 
             }
 
             return cmds;
+
+            bool isCommand(String command)
+            {
+                int checker = 0;
+                Int32.TryParse(command, out checker);
+                if (checker != 0) {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+                
+            }
         }
+
+        
 
 
 

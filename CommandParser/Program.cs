@@ -10,8 +10,8 @@ namespace CommandParser
     {
         static void Main(string[] args)
         {
-            String stringCommand = "lx20,r32,d12,u12";
-            List<Command> cmds = Parser.parseCommand(stringCommand);
+            String command = "l10, r22,14,u11";
+            List<Command> cmds = Parser.parseCommand(command);
 
             foreach (Command cmd in cmds)
             {
